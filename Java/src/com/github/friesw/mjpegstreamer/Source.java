@@ -10,9 +10,9 @@ public class Source implements ImageSource
    private static final int DEFAULT_HEIGHT = 250;
    private static final int DEFAULT_WIDTH = 400;
    
-   private static final float SATURATION = 0.50f;
+   private static final float SATURATION = 0.5f;
    private static final float LIGHTNESS = 0.25f;
-   private static final float HUE_DIVIDER = 1000f;
+   private static final float HUE_DIVIDER = 10000f;
    
    private int width;
    private int height;
@@ -38,13 +38,15 @@ public class Source implements ImageSource
       
       //BG color
       Graphics g = img.getGraphics();
-      g.setColor(Color.getHSBColor(t / HUE_DIVIDER % 1, SATURATION, LIGHTNESS));
-      g.drawRect(0, 0, width, height);
+      g.setColor(Color.getHSBColor(
+    		  (t % HUE_DIVIDER) / HUE_DIVIDER,
+    		  SATURATION,
+    		  LIGHTNESS));
+      g.fillRect(0, 0, width, height);
       
       //Time
       g.setColor(Color.WHITE);
-      g.drawString("" + t, 10, 10);
-      
+      g.drawString("Running for " + t / 1000 + " seconds.", 10, 15);
       g.dispose();
       
       return img;

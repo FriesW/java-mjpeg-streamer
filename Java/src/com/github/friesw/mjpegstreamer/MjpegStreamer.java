@@ -1,7 +1,6 @@
 package com.github.friesw.mjpegstreamer;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -64,14 +63,14 @@ public class MjpegStreamer
          ImageSource is = new Source();
          while(true)
          {
-            System.out.print("Outputting...");
+            //System.out.print("Outputting...");
             byte[] img = saveImageAsJPEG(is.getImage(), 80);
             os.write((head + img.length + "\r\n\r\n").getBytes());
             os.write(img);
-            System.out.println("Done");
+            //System.out.println("Done");
             try
             {
-               Thread.sleep(1000);
+               Thread.sleep(100);
             }
             catch (InterruptedException e)
             {
@@ -92,7 +91,7 @@ public class MjpegStreamer
        }
        float quality = qualityPercent / 100f;
        ImageWriter writer = null;
-       Iterator iter = ImageIO.getImageWritersByFormatName("jpg");
+       Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName("jpg");
        if (iter.hasNext()) {
          writer = (ImageWriter) iter.next();
        }
